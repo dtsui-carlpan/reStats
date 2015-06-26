@@ -163,6 +163,7 @@ def write_analysis_txt(dict_list, category_name):
 	# TOP K QUANTITY
 	top_k_quantity_list = top_k_quantity(dict_list, k)
 	s = 'Top ' + str(k) + ' in terms of quantity: \n'
+	f.write(s)
 	for tup in top_k_quantity_list:
 		s = tup[1] + ': ' + str(tup[0]) + '\n'
 		f.write(s)
@@ -172,6 +173,7 @@ def write_analysis_txt(dict_list, category_name):
 	# TOP K PRICE
 	top_k_price_list = top_k_price(dict_list, k)
 	s = 'Top ' + str(k) + ' in terms of price: \n'
+	f.write(s)
 	for tup in top_k_price_list:
 		s = tup[1] + ': ' + '$' + str(tup[0]) + '\n'
 		f.write(s)
@@ -190,6 +192,7 @@ if __name__ == '__main__':
 	entree_expensive_dict_list = csv_to_dict('data/sales_Jan_2014/Entree_expensive.csv')
 	write_analysis_txt(entree_expensive_dict_list, 'entree_expensive')
 
-
+	entree_general_dict_list = csv_to_dict('data/sales_Jan_2014/Entree_general.csv')
+	write_analysis_txt(entree_general_dict_list, 'entree_general')
 
 
