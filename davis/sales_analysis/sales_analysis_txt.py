@@ -153,26 +153,35 @@ def find_csv_filenames(path_to_dir, suffix):
     return [filename for filename in filenames if filename.endswith(suffix)]
 
 # this function goes over every csvfile in the data folder and writes the output all in one file
-def write_txt_file_wrapper(k):
-	path_to_dir = 'data/sales_Jan_2015/'
+def write_txt_file_wrapper(k, path_to_dir, data_date):
 	suffix = '.csv'
 	csv_filenames = find_csv_filenames(path_to_dir, suffix)
 
-	write_filename = 'output/Jan_2015.txt'
+	write_filename = 'output/' + data_date + '.txt'
 	f = open(write_filename, 'w')
 
 	for csv_filename in csv_filenames:
 		# EXPENSIVE ENTREE
-		filename = 'data/sales_Jan_2015/' + csv_filename
+		filename = path_to_dir + '/' + csv_filename
 		dict_list = csv_to_dict(filename)
 		dept_name = csv_filename.split('.')[0]
-		data_date = 'Jan_2015'
 		write_txt_file(dict_list, k, dept_name, data_date, f)
 		f.write('#######################################################\n')
 		f.write('#######################################################\n\n')
 
 	f.close()
-		
+
+# this function goes over all the folders within the data folder
+# within each of the folders that it goes over is a set of csv files	
+def wrapper_wrapper(k):
+	# folders is the list of folder names within the data folder
+	folders = listdir('data/')
+	
+	for folder_name in folders:
+		path_to_dir = 'data/' + folder_name
+		data_date = folder_name
+		write_txt_file_wrapper(k, path_to_dir, data_date)
+
 
 # # plots a pie chart with the top k items and others as the combined sum of the rest of the items
 # # we look at revenue first
@@ -214,7 +223,9 @@ def write_txt_file_wrapper(k):
 
 if __name__ == '__main__':
 	k = 5
-	write_txt_file_wrapper(k)
+	wrapper_wrapper(k)
 	#mk_revenue_pi_chart()
+	
+
 
 
