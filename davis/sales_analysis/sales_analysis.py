@@ -2,6 +2,7 @@
 
 import csv
 import matplotlib.pyplot as pyplot
+from os import listdir
 
 '''
 	Helper functions for pie chart colors and reading in a csvfile into a dictionary
@@ -90,10 +91,20 @@ def top_k_item_entry(dict_list, k, entry_name):
 
 	return top_k_list
 
+# returns the percent of total revenue that the item has generated
+def find_pct_total_revenue(dict_list, item_name):
+	total_revenue = get_total_revenue(dict_list)
+	for d in dict_list:
+		name = d['ITEM_NAME']
+		if name == item_name:
+			item_revenue = get_item_entry(d, 'ITEM_REVENUE')
+			break
+	pct_tot = round(item_revenue/total_revenue, 10)
+	pct_tot = round(pct_tot * 100, 2)
+	return pct_tot
 
-def write_txt_file(dict_list, k, dept_name, data_date, write_filename):
-	f = open(write_filename, 'w')
-
+# this is a general function that works with all 
+def write_txt_file(dict_list, k, dept_name, data_date, f):
 	# Introduction/header of the file
 	s = 'Dept: ' + dept_name + '\n' + 'Data Date: ' + data_date + '\n\n'
 	f.write(s)
@@ -108,7 +119,9 @@ def write_txt_file(dict_list, k, dept_name, data_date, write_filename):
 	s = 'Top ' + str(k) + ' in terms of revenue:\n'
 	f.write(s)
 	for tup in top_k_revenue_list:
-		s = tup[1] + ': ' + '$' + str(tup[0]) + '\n'
+		pct_tot = round(tup[0]/total_revenue, 5)
+		pct_tot = pct_tot * 100
+		s = tup[1] + ': ' + '$' + str(tup[0]) + ' | ' + str(pct_tot) + '%' + ' of total revenue' + '\n'
 		f.write(s)
 	f.write('\n')
 
@@ -117,7 +130,8 @@ def write_txt_file(dict_list, k, dept_name, data_date, write_filename):
 	s = 'Top ' + str(k) + ' in terms of quantity:\n'
 	f.write(s)
 	for tup in top_k_quantity_list:
-		s = tup[1] + ': ' + str(tup[0]) + '\n'
+		pct_tot = find_pct_total_revenue(dict_list, tup[1])
+		s = tup[1] + ': ' + str(tup[0]) + ' | ' + str(pct_tot) + '%' + ' of total revenue' + '\n'
 		f.write(s)
 	f.write('\n')
 
@@ -126,60 +140,80 @@ def write_txt_file(dict_list, k, dept_name, data_date, write_filename):
 	s = 'Top ' + str(k) + ' in terms of price:\n'
 	f.write(s)
 	for tup in top_k_price_list:
-		s = tup[1] + ': ' + '$' + str(tup[0]) + '\n'
+		pct_tot = find_pct_total_revenue(dict_list, tup[1])
+		s = tup[1] + ': ' + '$' + str(tup[0]) + ' | ' + str(pct_tot) + '%' + ' of total revenue' + '\n'
 		f.write(s)
 	f.write('\n')
 
+# got this from the internet
+# http://stackoverflow.com/questions/9234560/find-all-csv-files-in-a-directory-using-python
+def find_csv_filenames(path_to_dir, suffix):
+    filenames = listdir(path_to_dir)
+    return [filename for filename in filenames if filename.endswith(suffix)]
+
+# this function goes over every csvfile in the data folder and writes the output all in one file
+def write_txt_file_wrapper(k):
+	path_to_dir = 'data/sales_Jan_2015/'
+	suffix = '.csv'
+	csv_filenames = find_csv_filenames(path_to_dir, suffix)
+
+	write_filename = 'output/Jan_2015.txt'
+	f = open(write_filename, 'w')
+
+	for csv_filename in csv_filenames:
+		# EXPENSIVE ENTREE
+		filename = 'data/sales_Jan_2015/' + csv_filename
+		dict_list = csv_to_dict(filename)
+		dept_name = csv_filename.split('.')[0]
+		data_date = 'Jan_2015'
+		write_txt_file(dict_list, k, dept_name, data_date, f)
+		f.write('#######################################################\n')
+		f.write('#######################################################\n\n')
+
 	f.close()
+		
 
+# # plots a pie chart with the top k items and others as the combined sum of the rest of the items
+# # we look at revenue first
+# def mk_revenue_pi_chart() :
+# 	total_revenue = get_total_revenue(dict_list)
+# 	top_k_revenue_list = top_k_item_entry(dict_list, k, 'ITEM_REVENUE')
 
-# plots a pie chart with the top k items and others as the combined sum of the rest of the items
-# we look at revenue first
-def mk_revenue_pi_chart():
-	total_revenue = get_total_revenue(dict_list)
-	top_k_revenue_list = top_k_item_entry(dict_list, k, 'ITEM_REVENUE')
+# 	sizes = []
+# 	labels = []
+# 	for tup in top_k_revenue_list:
+# 		# tup[0] is already a float
+# 		item_revenue = tup[0]
+# 		item_name = tup[1]
 
-	sizes = []
-	labels = []
-	for tup in top_k_revenue_list:
-		# tup[0] is already a float
-		item_revenue = tup[0]
-		item_name = tup[1]
+# 		sizes.append(item_revenue)
+# 		labels.append(item_name)
 
-		sizes.append(item_revenue)
-		labels.append(item_name)
+# 		total_revenue -= item_revenue
 
-		total_revenue -= item_revenue
+# 	l = []
+# 	for label in labels:
+# 		l.append(label.decode('utf-8'))
 
-	l = []
-	for label in labels:
-		l.append(label.decode('utf-8'))
+# 	# now total_revenue is the left over revenue, thus the others revenue
+# 	sizes.append(total_revenue)
+# 	l.append('others')
 
-	# now total_revenue is the left over revenue, thus the others revenue
-	sizes.append(total_revenue)
-	l.append('others')
+# 	# use some beautiful colors
 
-	# use some beautiful colors
+# 	colors_list = rgb_scale_down(colors)
 
-	colors_list = rgb_scale_down(colors)
-
-	pyplot.axis('equal')
-	pyplot.pie(sizes, labels = l, autopct='%1.1f%%', colors = colors_list)
-	pyplot.title('Top Revenue')
-	pyplot.savefig('output/top_revenue.png')
-	pyplot.show()
+# 	pyplot.axis('equal')
+# 	pyplot.pie(sizes, labels = l, autopct='%1.1f%%', colors = colors_list)
+# 	pyplot.title('Top Revenue')
+# 	pyplot.savefig('output/top_revenue_pie_chart.png')
+# 	pyplot.show()
 
 
 
 if __name__ == '__main__':
-	# EXPENSIVE ENTREE
-	dict_list = csv_to_dict('data/sales_Jan_2014/Entree_expensive.csv')
 	k = 5
-	dept_name = 'Entree Expensive'
-	data_date = 'Jan 2015'
-	write_filename = 'output/entree_expesive_Jan_2015.txt'
-	write_txt_file(dict_list, k, dept_name, data_date, write_filename)
-
-	mk_revenue_pi_chart()
+	write_txt_file_wrapper(k)
+	#mk_revenue_pi_chart()
 
 
