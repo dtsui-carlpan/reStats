@@ -46,8 +46,9 @@ def csv_to_dict(csv_filename):
 		1. Top k items in terms of revenue generated (from high to low)
 		2. Top k items in terms of quantity sold (from high to low)
 		2. Top k items in terms of price (from high to low)
-		3. A pie chart of the top k items (with the rest of the items being the combined 'others') in terms of revenue
-		4. What is the proportion of the total revenue that each item generates
+		
+			* I also specified each item's proportion of revenue relative to the toal revenue of
+			  its respective department
 
 '''
 # returns a float, the item_revenue
