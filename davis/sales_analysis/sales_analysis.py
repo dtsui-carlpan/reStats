@@ -138,41 +138,58 @@ def mk_revenue_pi_chart(total_revenue, top_k_revenue_list):
 	pyplot.savefig('top_revenue.png')
 	pyplot.show()
 
-
-if __name__ == '__main__':
-
-	dict_list = csv_to_dict('../sales_Jan_2014/Entree_expensive.csv')
+def write_analysis_txt(dict_list, category_name):
+	filename = category_name + '.txt'
+	f = open(filename, 'w')
 
 	# TOTAL REVENUE
 	total_revenue = get_total_revenue(dict_list)
-	print '\nTotal revenue for Jan 2015 is: ' + str(total_revenue) + '\n'
+	s = 'Total revenue for Jan 2015 ' + category_name + ' is: $' + str(total_revenue) + '\n'
+	f.write(s)
+
+	f.write('\n')
 
 	k = 7
 	# TOP K REVENUE
 	top_k_revenue_list = top_k_revenue(dict_list, k)
-	print 'Top ' + str(k) + ' in terms of revenue: '
+	s = 'Top ' + str(k) + ' in terms of revenue: \n'
+	f.write(s)
 	for tup in top_k_revenue_list:
-		print tup[1] + ': ' + str(tup[0])
-	print ''
+		s = tup[1] + ': ' + '$' + str(tup[0]) + '\n'
+		f.write(s)
 
-	top_k_quantity(dict_list, 5)
+	f.write('\n')
 
 	# TOP K QUANTITY
 	top_k_quantity_list = top_k_quantity(dict_list, k)
-	print 'Top ' + str(k) + ' in terms of quantity: '
+	s = 'Top ' + str(k) + ' in terms of quantity: \n'
 	for tup in top_k_quantity_list:
-		print tup[1] + ': ' + str(tup[0])
-	print ''
+		s = tup[1] + ': ' + str(tup[0]) + '\n'
+		f.write(s)
+
+	f.write('\n')
 
 	# TOP K PRICE
 	top_k_price_list = top_k_price(dict_list, k)
-	print 'Top ' + str(k) + ' in terms of price: '
+	s = 'Top ' + str(k) + ' in terms of price: \n'
 	for tup in top_k_price_list:
-		print tup[1] + ': ' + '$' + str(tup[0])
-	print ''
+		s = tup[1] + ': ' + '$' + str(tup[0]) + '\n'
+		f.write(s)
+
+	f.write('\n')
 
 	# REVENUE PIE CHART
 	mk_revenue_pi_chart(total_revenue, top_k_revenue_list)
+	s = 'Top Revenue Pi Chart for ' + category_name + ' saved as top_revenue.png\n'
+	f.write(s)
+
+
+
+if __name__ == '__main__':
+	# EXPENSIVE ENTREE
+	entree_expensive_dict_list = csv_to_dict('data/sales_Jan_2014/Entree_expensive.csv')
+	write_analysis_txt(entree_expensive_dict_list, 'entree_expensive')
+
 
 
 
