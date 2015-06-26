@@ -1,11 +1,31 @@
 # coding: utf-8
 
-from colors import *
 import csv
 import matplotlib.pyplot as pyplot
 
+'''
+	Helper functions for pie chart colors and reading in a csvfile into a dictionary
+'''
+# a set of rgb values of some beautiful colors
+creamy_green = (152, 223, 138)
+creamy_orange = (255, 193, 86)
+light_blue = (162, 200, 236)
+teal = (23, 190, 207)
+maroon = (200, 82, 0)
+grey = (143, 135, 130)
+
+colors = [creamy_green, creamy_orange, light_blue, maroon, teal, grey]
+
+# converts each value in the rgb tuple from 0 - 255 to 0 - 1
+def rgb_scale_down(colors):
+	final = []
+	for c in colors:
+		tup = (float(c[0])/255.0, float(c[1])/255.0, float(c[2])/255.0)
+		final.append(tup)
+	return final
 
 # returns a list of dictionaries, with each dictionary being one line (one item) in the csv file
+# Best way to do it, this function is general
 def csv_to_dict(csv_filename):
 	dict_list = []
 	# with will implicity close the file after it is done being used
@@ -18,16 +38,22 @@ def csv_to_dict(csv_filename):
 
 	return dict_list
 
-'''
-	Questions:
 
-		1. What are the top 3 items that bring the most revenue?
-		   What is the proportion of each of them with respect to the total revue?
-		2. 
+'''
+	Questions investigated:
+
+		1. Top k items in terms of revenue generated (from high to low)
+		2. Top k items in terms of quantity sold (from high to low)
+		2. Top k items in terms of price (from high to low)
+		3. A pie chart of the top k items (with the rest of the items being the combined 'others') in terms of revenue
+		4. What is the proportion of the total revenue that each item generates
+
 '''
 # returns a float, the item_revenue
-def get_item_revenue(d):
-	item_revenue = d['ITEM_REVENUE']
+# entry here can be 'ITEM_REVENUE', 'ITEM_QUANTITY' or whatever that is a field name in the csvfilea
+# nd is a string that is actually a float
+def get_item_entry(d, entry_name):
+	item_revenue = d[entry_name]
 	# need to get rid of the "," and float it
 	item_revenue = item_revenue.replace(',', '')
 	item_revenue = float(item_revenue)
@@ -37,19 +63,20 @@ def get_item_revenue(d):
 def get_total_revenue(dict_list):
 	total_revenue = 0.0
 	for d in dict_list:
-		item_revenue = get_item_revenue(d)
+		item_revenue = get_item_entry(d, 'ITEM_REVENUE')
 		total_revenue += item_revenue
 
 	return total_revenue
 
 
-# returns a list of tuples: (item_revenue, item_name) with the MOST revenues
-def top_k_revenue(dict_list, k):
+# returns a list of tuples: (item_entry, item_name) from high to low order
+# entry_name here can be: 'ITEM_REVENUE', 'ITEM_QUANTITY', 'UNIT_PRICE', whatever that is a fieldname
+def top_k_item_entry(dict_list, k, entry_name):
 	# first make a list of tuples: (item_revenue, item_name)
 	# and then we can sort the list however we want
 	all_list = []
 	for d in dict_list:
-		item_revenue = get_item_revenue(d)
+		item_revenue = get_item_entry(d, entry_name)
 		item_name = d['ITEM_NAME']
 		tup = (item_revenue, item_name)
 		all_list.append(tup)
@@ -64,50 +91,54 @@ def top_k_revenue(dict_list, k):
 	return top_k_list
 
 
-def top_k_quantity(dict_list, k):
-	all_list = []
-	for d in dict_list:
-		# ITEM_QUANTITY is a string
-		item_quantity = d['ITEM_QUANTITY']
-		item_quantity = item_quantity.replace(',', '')
-		item_quantity = float(item_quantity)
-		item_name = d['ITEM_NAME']
-		tup = (item_quantity, item_name)
-		all_list.append(tup)
-	# you can sort this in the reverse way as well
-	all_list.sort(reverse = True)
-	
-	# make top k list now
-	top_k_list = []
-	for i in range(k):
-		top_k_list.append(all_list[i])
+def write_txt_file(dict_list, k, dept_name, data_date, write_filename):
+	f = open(write_filename, 'w')
 
-	return top_k_list
+	# Introduction/header of the file
+	s = 'Dept: ' + dept_name + '\n' + 'Data Date: ' + data_date + '\n\n'
+	f.write(s)
 
-# top 5 in price
-def top_k_price(dict_list, k):
-	all_list = []
-	for d in dict_list:
-		# UNIT_PRICE is string
-		unit_price = d['UNIT_PRICE']
-		unit_price = unit_price.replace(',', '')
-		unit_price = float(unit_price)
-		item_name = d['ITEM_NAME']
-		tup = (unit_price, item_name)
-		all_list.append(tup)
-	# you can sort this in the reverse way as well
-	all_list.sort(reverse = True)
-	
-	# make top k list now
-	top_k_list = []
-	for i in range(k):
-		top_k_list.append(all_list[i])
+	# TOTAL REVENUE
+	total_revenue = get_total_revenue(dict_list)
+	s = 'Total revenue for ' + dept_name + ' in ' + data_date + ' is: $' + str(total_revenue) + '\n\n'
+	f.write(s)
 
-	return top_k_list
+	# TOP K REVENUE
+	top_k_revenue_list = top_k_item_entry(dict_list, k, 'ITEM_REVENUE')
+	s = 'Top ' + str(k) + ' in terms of revenue:\n'
+	f.write(s)
+	for tup in top_k_revenue_list:
+		s = tup[1] + ': ' + '$' + str(tup[0]) + '\n'
+		f.write(s)
+	f.write('\n')
+
+	# TOP K QUANTITY
+	top_k_quantity_list = top_k_item_entry(dict_list, k, 'ITEM_QUANTITY')
+	s = 'Top ' + str(k) + ' in terms of quantity:\n'
+	f.write(s)
+	for tup in top_k_quantity_list:
+		s = tup[1] + ': ' + str(tup[0]) + '\n'
+		f.write(s)
+	f.write('\n')
+
+	# TOP K PRICE
+	top_k_price_list = top_k_item_entry(dict_list, k, 'UNIT_PRICE')
+	s = 'Top ' + str(k) + ' in terms of price:\n'
+	f.write(s)
+	for tup in top_k_price_list:
+		s = tup[1] + ': ' + '$' + str(tup[0]) + '\n'
+		f.write(s)
+	f.write('\n')
+
+	f.close()
+
 
 # plots a pie chart with the top k items and others as the combined sum of the rest of the items
 # we look at revenue first
-def mk_revenue_pi_chart(total_revenue, top_k_revenue_list):
+def mk_revenue_pi_chart():
+	total_revenue = get_total_revenue(dict_list)
+	top_k_revenue_list = top_k_item_entry(dict_list, k, 'ITEM_REVENUE')
+
 	sizes = []
 	labels = []
 	for tup in top_k_revenue_list:
@@ -135,64 +166,20 @@ def mk_revenue_pi_chart(total_revenue, top_k_revenue_list):
 	pyplot.axis('equal')
 	pyplot.pie(sizes, labels = l, autopct='%1.1f%%', colors = colors_list)
 	pyplot.title('Top Revenue')
-	pyplot.savefig('top_revenue.png')
+	pyplot.savefig('output/top_revenue.png')
 	pyplot.show()
-
-def write_analysis_txt(dict_list, category_name):
-	filename = category_name + '.txt'
-	f = open(filename, 'w')
-
-	# TOTAL REVENUE
-	total_revenue = get_total_revenue(dict_list)
-	s = 'Total revenue for Jan 2015 ' + category_name + ' is: $' + str(total_revenue) + '\n'
-	f.write(s)
-
-	f.write('\n')
-
-	k = 7
-	# TOP K REVENUE
-	top_k_revenue_list = top_k_revenue(dict_list, k)
-	s = 'Top ' + str(k) + ' in terms of revenue: \n'
-	f.write(s)
-	for tup in top_k_revenue_list:
-		s = tup[1] + ': ' + '$' + str(tup[0]) + '\n'
-		f.write(s)
-
-	f.write('\n')
-
-	# TOP K QUANTITY
-	top_k_quantity_list = top_k_quantity(dict_list, k)
-	s = 'Top ' + str(k) + ' in terms of quantity: \n'
-	f.write(s)
-	for tup in top_k_quantity_list:
-		s = tup[1] + ': ' + str(tup[0]) + '\n'
-		f.write(s)
-
-	f.write('\n')
-
-	# TOP K PRICE
-	top_k_price_list = top_k_price(dict_list, k)
-	s = 'Top ' + str(k) + ' in terms of price: \n'
-	f.write(s)
-	for tup in top_k_price_list:
-		s = tup[1] + ': ' + '$' + str(tup[0]) + '\n'
-		f.write(s)
-
-	f.write('\n')
-
-	# REVENUE PIE CHART
-	mk_revenue_pi_chart(total_revenue, top_k_revenue_list)
-	s = 'Top Revenue Pi Chart for ' + category_name + ' saved as top_revenue.png\n'
-	f.write(s)
 
 
 
 if __name__ == '__main__':
 	# EXPENSIVE ENTREE
-	entree_expensive_dict_list = csv_to_dict('data/sales_Jan_2014/Entree_expensive.csv')
-	write_analysis_txt(entree_expensive_dict_list, 'entree_expensive')
+	dict_list = csv_to_dict('data/sales_Jan_2014/Entree_expensive.csv')
+	k = 5
+	dept_name = 'Entree Expensive'
+	data_date = 'Jan 2015'
+	write_filename = 'output/entree_expesive_Jan_2015.txt'
+	write_txt_file(dict_list, k, dept_name, data_date, write_filename)
 
-	entree_general_dict_list = csv_to_dict('data/sales_Jan_2014/Entree_general.csv')
-	write_analysis_txt(entree_general_dict_list, 'entree_general')
+	mk_revenue_pi_chart()
 
 
