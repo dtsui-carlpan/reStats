@@ -85,7 +85,25 @@ def top_k_quantity(dict_list, k):
 	return top_k_list
 
 # top 5 in price
+def top_k_price(dict_list, k):
+	all_list = []
+	for d in dict_list:
+		# UNIT_PRICE is string
+		unit_price = d['UNIT_PRICE']
+		unit_price = unit_price.replace(',', '')
+		unit_price = float(unit_price)
+		item_name = d['ITEM_NAME']
+		tup = (unit_price, item_name)
+		all_list.append(tup)
+	# you can sort this in the reverse way as well
+	all_list.sort(reverse = True)
+	
+	# make top k list now
+	top_k_list = []
+	for i in range(k):
+		top_k_list.append(all_list[i])
 
+	return top_k_list
 
 # plots a pie chart with the top k items and others as the combined sum of the rest of the items
 # we look at revenue first
@@ -121,22 +139,15 @@ def mk_revenue_pi_chart(total_revenue, top_k_revenue_list):
 	pyplot.show()
 
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
 
-	dict_list = csv_to_dict('sales_Jan_2014/Entree_expensive.csv')
+	dict_list = csv_to_dict('../sales_Jan_2014/Entree_expensive.csv')
 
 	# TOTAL REVENUE
 	total_revenue = get_total_revenue(dict_list)
 	print '\nTotal revenue for Jan 2015 is: ' + str(total_revenue) + '\n'
 
-	k = 5
+	k = 7
 	# TOP K REVENUE
 	top_k_revenue_list = top_k_revenue(dict_list, k)
 	print 'Top ' + str(k) + ' in terms of revenue: '
@@ -153,6 +164,14 @@ if __name__ == '__main__':
 		print tup[1] + ': ' + str(tup[0])
 	print ''
 
+	# TOP K PRICE
+	top_k_price_list = top_k_price(dict_list, k)
+	print 'Top ' + str(k) + ' in terms of price: '
+	for tup in top_k_price_list:
+		print tup[1] + ': ' + '$' + str(tup[0])
+	print ''
+
+	# REVENUE PIE CHART
 	mk_revenue_pi_chart(total_revenue, top_k_revenue_list)
 
 
