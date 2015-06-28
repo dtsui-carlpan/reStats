@@ -11,6 +11,29 @@ var elixir = require('laravel-elixir');
  |
  */
 
+var pathDir = 'vendor/bower_components/';
+
+
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix.sass('app.scss')
+        .copy(
+            pathDir + 'jquery/dist/jquery.min.js',
+            'public/js/vendor/jquery.js'
+    )
+        .copy(
+            pathDir + 'bootstrap-sass-official/assets/javascripts/bootstrap.js',
+            'public/js/vendor/bootstrap.js'
+    )
+        .copy(
+            pathDir + 'font-awesome/css/font-awesome.min.css',
+            'public/css/vendor/font-awesome.css'
+    )
+        .copy(
+            pathDir + 'font-awesome/fonts',
+            'public/css/fonts'
+    )
+        .copy(
+            pathDir + 'angular/angular.min.js',
+            'public/js/vendor/angular.js'
+    );
 });
