@@ -11,22 +11,24 @@ def find_csv_filenames(path_to_dir, suffix):
 
 def clean_csv_filename():
 	# . specifies current directory
-	folders = listdir('data/')
+	# folders will be: 2014, 2015
+	years = listdir('data/')
 
 	suffix = '.csv'
-	for folder in folders:
-		path_to_dir = 'data/' + folder + '/'
-		csv_filenames = find_csv_filenames(path_to_dir, suffix)
+	for year in years:
+		months = listdir('data/' + year)
+		for month in months:
+			path_to_dir = 'data/' + year + '/' + month + '/'
+			csv_filenames = find_csv_filenames(path_to_dir, suffix)
 
-		for csv_filename in csv_filenames:
-			print csv_filename
-			if 'Table' in csv_filename:
-				# a space is represented differently in the command line
-				old_csvfile_name = path_to_dir + csv_filename.split('-')[0] + '-Table\ 1.csv'
-				new_csv_filename = path_to_dir + csv_filename.split('-')[0] + '.csv'
-				script = 'mv ' + old_csvfile_name + ' ' + new_csv_filename
-				print script
-				os.system(script)
+			for csv_filename in csv_filenames:
+				if 'Table' in csv_filename:
+					# a space is represented differently in the command line
+					old_csvfile_name = path_to_dir + csv_filename.split('-')[0] + '-Table\ 1.csv'
+					new_csv_filename = path_to_dir + csv_filename.split('-')[0] + '.csv'
+					script = 'mv ' + old_csvfile_name + ' ' + new_csv_filename
+					print script
+					os.system(script)
 
 if __name__ == '__main__':
 	clean_csv_filename()

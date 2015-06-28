@@ -86,6 +86,8 @@ def top_k_item_entry(dict_list, k, entry_name):
 	
 	# make top k list now
 	top_k_list = []
+
+	k = min(k, len(all_list))
 	for i in range(k):
 		top_k_list.append(all_list[i])
 
