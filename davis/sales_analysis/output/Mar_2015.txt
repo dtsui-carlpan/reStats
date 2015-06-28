@@ -1,7 +1,7 @@
-Dept: Appetizers-Table 1
+Dept: Appetizers
 Data Date: Mar_2015
 
-Total revenue for Appetizers-Table 1 in Mar_2015 is: $83454.7
+Total revenue for Appetizers in Mar_2015 is: $83454.7
 
 Top 5 in terms of revenue:
 馆藏本草凉菜（套餐）: $13820.28 | 16.56% of total revenue
@@ -27,10 +27,10 @@ Top 5 in terms of price:
 #######################################################
 #######################################################
 
-Dept: Bar-Table 1
+Dept: Bar
 Data Date: Mar_2015
 
-Total revenue for Bar-Table 1 in Mar_2015 is: $158305.2
+Total revenue for Bar in Mar_2015 is: $158305.2
 
 Top 5 in terms of revenue:
 普通茶（厅）: $13750.0 | 8.686% of total revenue
@@ -56,10 +56,10 @@ Top 5 in terms of price:
 #######################################################
 #######################################################
 
-Dept: Dimsum-Table 1
+Dept: Dimsum
 Data Date: Mar_2015
 
-Total revenue for Dimsum-Table 1 in Mar_2015 is: $183177.03
+Total revenue for Dimsum in Mar_2015 is: $183177.03
 
 Top 5 in terms of revenue:
 龙虾汤稻庭面: $36404.0 | 19.874% of total revenue
@@ -85,10 +85,10 @@ Top 5 in terms of price:
 #######################################################
 #######################################################
 
-Dept: Entree_expensive-Table 1
+Dept: Entree_expensive
 Data Date: Mar_2015
 
-Total revenue for Entree_expensive-Table 1 in Mar_2015 is: $214552.0
+Total revenue for Entree_expensive in Mar_2015 is: $214552.0
 
 Top 5 in terms of revenue:
 铁板低温和牛肉配味黄瓜: $87906.0 | 40.972% of total revenue
@@ -114,10 +114,10 @@ Top 5 in terms of price:
 #######################################################
 #######################################################
 
-Dept: Entree_general-Table 1
+Dept: Entree_general
 Data Date: Mar_2015
 
-Total revenue for Entree_general-Table 1 in Mar_2015 is: $601672.8
+Total revenue for Entree_general in Mar_2015 is: $601672.8
 
 Top 5 in terms of revenue:
 鲜人参沙白浸桑果鸡: $35880.0 | 5.963% of total revenue
@@ -143,10 +143,10 @@ Top 5 in terms of price:
 #######################################################
 #######################################################
 
-Dept: Luxury-Table 1
+Dept: Luxury
 Data Date: Mar_2015
 
-Total revenue for Luxury-Table 1 in Mar_2015 is: $101502.0
+Total revenue for Luxury in Mar_2015 is: $101502.0
 
 Top 5 in terms of revenue:
 百岁草炖珍珠鲍鱼: $27900.0 | 27.487% of total revenue
@@ -172,10 +172,10 @@ Top 5 in terms of price:
 #######################################################
 #######################################################
 
-Dept: Seafood-Table 1
+Dept: Seafood
 Data Date: Mar_2015
 
-Total revenue for Seafood-Table 1 in Mar_2015 is: $355580.97
+Total revenue for Seafood in Mar_2015 is: $355580.97
 
 Top 5 in terms of revenue:
 火山石窝龙趸扒: $17052.0 | 4.796% of total revenue
@@ -201,10 +201,10 @@ Top 5 in terms of price:
 #######################################################
 #######################################################
 
-Dept: Soup-Table 1
+Dept: Soup
 Data Date: Mar_2015
 
-Total revenue for Soup-Table 1 in Mar_2015 is: $217218.0
+Total revenue for Soup in Mar_2015 is: $217218.0
 
 Top 5 in terms of revenue:
 金山黑金刚牛黄炖螺头: $48108.0 | 22.147% of total revenue
