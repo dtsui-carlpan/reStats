@@ -54,11 +54,7 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            //'host'      => env('DB_HOST', 'localhost'),
             'host'      => '192.168.10.10',
-            //'database'  => env('DB_DATABASE', 'forge'),
-            //'username'  => env('DB_USERNAME', 'forge'),
-            //'password'  => env('DB_PASSWORD', ''),
             'database'  => 'restats',
             'username'  => 'homestead',
             'password'  => 'secret',
