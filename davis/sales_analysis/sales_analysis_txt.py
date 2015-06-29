@@ -138,7 +138,7 @@ def write_txt_file_wrapper(k, path_to_dir, month, year):
 	suffix = '.csv'
 	csv_filenames = find_csv_filenames(path_to_dir, suffix)
 
-	write_filename = 'output/' + year + '/' + month + '.txt'
+	write_filename = 'output/' + year + '/texts/' + month + '.txt'
 	f = open(write_filename, 'w')
 
 	for csv_filename in csv_filenames:
