@@ -1,0 +1,261 @@
+Dept: Appetizers
+Data Date: Jul_2014
+
+Total revenue for Appetizers in Jul_2014 is: $60447.77
+
+Top 5 in terms of revenue:
+馆藏本草凉菜B（套餐）: $14473.25 | 23.943% of total revenue
+麻酱万年青: $5814.0 | 9.618% of total revenue
+开胃泡椒鸭舌: $4756.0 | 7.868% of total revenue
+洋葱小木耳: $4368.0 | 7.226% of total revenue
+青苹果煎西班牙乳猪: $3666.0 | 6.065% of total revenue
+
+Top 5 in terms of quantity:
+馆藏本草凉菜B（套餐）: 188.0 | 23.94% of total revenue
+洋葱小木耳: 156.0 | 7.23% of total revenue
+麻酱万年青: 153.0 | 9.62% of total revenue
+珍品凉菜双拼B（套餐10月）: 90.0 | 4.03% of total revenue
+开胃泡椒鸭舌: 82.0 | 7.87% of total revenue
+
+Top 5 in terms of price:
+黑竹盐吞拿鱼腩拼三文鱼腩: $88.0 | 5.68% of total revenue
+风味汁大花螺: $88.0 | 2.18% of total revenue
+蟹肉金柚拌夜香花: $88.0 | 0.44% of total revenue
+蓝莓鹅肝三文鱼塔: $88.0 | 2.62% of total revenue
+意大利黑醋拌海蜇: $88.0 | 5.24% of total revenue
+
+#######################################################
+#######################################################
+
+Dept: Bar
+Data Date: Jul_2014
+
+Total revenue for Bar in Jul_2014 is: $133635.37
+
+Top 5 in terms of revenue:
+博士养生茶: $20020.0 | 14.981% of total revenue
+普通茶（散）: $17980.0 | 13.455% of total revenue
+普通茶（厅）: $12431.87 | 9.303% of total revenue
+澳洲奔富407: $5880.0 | 4.4% of total revenue
+红枣枸杞雪菊茶: $5460.0 | 4.086% of total revenue
+
+Top 5 in terms of quantity:
+水果（送）: 2771.0 | 0.0% of total revenue
+博士养生茶(赠送）: 2078.0 | 0.0% of total revenue
+普通茶（散）: 1798.0 | 13.45% of total revenue
+普通茶（厅）: 1036.0 | 9.3% of total revenue
+博士养生茶(增加）: 976.0 | 0.0% of total revenue
+
+Top 5 in terms of price:
+澳洲奔富707: $3200.0 | 2.39% of total revenue
+大号轩尼诗XO: $2380.0 | 3.56% of total revenue
+马爹利蓝带.350ML: $1200.0 | 0.9% of total revenue
+澳洲奔富407: $980.0 | 4.4% of total revenue
+1990年梅鹿液53度: $980.0 | 2.2% of total revenue
+
+#######################################################
+#######################################################
+
+Dept: Dimsum
+Data Date: Jul_2014
+
+Total revenue for Dimsum in Jul_2014 is: $140281.25
+
+Top 5 in terms of revenue:
+龙虾汤稻庭面: $31198.0 | 22.24% of total revenue
+补气鲜参灌汤包（特）: $9854.0 | 7.024% of total revenue
+黑松露素粉果（特）(半价): $7384.0 | 5.264% of total revenue
+人参灌汤包: $6192.0 | 4.414% of total revenue
+龙虾汤稻庭面（套餐）: $5195.58 | 3.704% of total revenue
+
+Top 5 in terms of quantity:
+龙虾汤稻庭面: 821.0 | 22.24% of total revenue
+黑松露素粉果（特）(半价): 568.0 | 5.26% of total revenue
+香草酱皇蒸凤爪（大）(半价): 446.0 | 3.5% of total revenue
+脆皮野菌肠（大）(半价): 432.0 | 3.39% of total revenue
+法式蛋挞（中）(半价): 389.0 | 2.5% of total revenue
+
+Top 5 in terms of price:
+莲子百合红豆沙: $139.98 | 0.6% of total revenue
+鲜水果忌廉生日蛋糕: $68.0 | 0.53% of total revenue
+鲜水果忌廉生日蛋糕（员工价）: $48.0 | 0.55% of total revenue
+茉莉花酥皮泡芙: $48.0 | 0.48% of total revenue
+精选黑森林生日蛋糕(员工价）: $48.0 | 0.1% of total revenue
+
+#######################################################
+#######################################################
+
+Dept: Entree_expensive
+Data Date: Jul_2014
+
+Total revenue for Entree_expensive in Jul_2014 is: $173996.0
+
+Top 5 in terms of revenue:
+铁板低温和牛肉配味黄瓜: $53218.0 | 30.586% of total revenue
+黑竹盐极品牛肉: $38640.0 | 22.207% of total revenue
+日本黑竹盐烧和牛膜: $12168.0 | 6.993% of total revenue
+温泉蛋脆皮雪花牛肉: $11760.0 | 6.759% of total revenue
+日本黑竹盐烧和牛膜（半价）: $10816.0 | 6.216% of total revenue
+
+Top 5 in terms of quantity:
+铁板低温和牛肉配味黄瓜: 451.0 | 30.59% of total revenue
+五谷南瓜盅: 187.0 | 5.16% of total revenue
+黑竹盐极品牛肉: 138.0 | 22.21% of total revenue
+日本黑竹盐烧和牛膜（半价）: 64.0 | 6.22% of total revenue
+铁板低温和牛肉配味黄瓜: 56.0 | 30.59% of total revenue
+
+Top 5 in terms of price:
+日本黑竹盐烧和牛膜: $338.0 | 6.99% of total revenue
+黑竹盐极品牛肉: $280.0 | 22.21% of total revenue
+温泉蛋脆皮雪花牛肉: $280.0 | 6.76% of total revenue
+日本黑竹盐烧和牛膜（半价）: $169.0 | 6.22% of total revenue
+金瓜五谷烩龙趸皮: $168.0 | 4.44% of total revenue
+
+#######################################################
+#######################################################
+
+Dept: Entree_general
+Data Date: Jul_2014
+
+Total revenue for Entree_general in Jul_2014 is: $535901.27
+
+Top 5 in terms of revenue:
+京葱烧日本北海道60头刺参: $48872.0 | 9.12% of total revenue
+松茸菌: $33384.0 | 6.23% of total revenue
+鲜人参沙白浸桑果鸡: $24288.0 | 4.532% of total revenue
+凉瓜青茉莉花炖活辽参(6月套餐): $18558.71 | 3.463% of total revenue
+喜之次鱼（半价）: $17204.0 | 3.21% of total revenue
+
+Top 5 in terms of quantity:
+日本鱼沼米饭: 495.0 | 0.92% of total revenue
+海苔琵琶豆腐丸（大）(半价): 418.0 | 0.86% of total revenue
+VIP房四宝小食: 334.0 | 2.49% of total revenue
+野竹笙浸鲜蔬苗（大）: 236.0 | 0.97% of total revenue
+石板酸菜自制豆腐: 178.0 | 2.26% of total revenue
+
+Top 5 in terms of price:
+金兰花汁扣三头印度鳘肚公: $980.0 | 0.55% of total revenue
+松茸菌: $780.0 | 6.23% of total revenue
+鸿运乳猪全体: $779.89 | 0.87% of total revenue
+喜之次鱼: $680.0 | 1.69% of total revenue
+白鸡纵菌: $500.0 | 0.34% of total revenue
+
+#######################################################
+#######################################################
+
+Dept: Luxury
+Data Date: Jul_2014
+
+Total revenue for Luxury in Jul_2014 is: $49840.0
+
+Top 5 in terms of revenue:
+六味岩燕盏: $15200.0 | 30.498% of total revenue
+鲍汁荷香海虎翅: $9520.0 | 19.101% of total revenue
+法国金兰花烩鲍翅皇: $5280.0 | 10.594% of total revenue
+日本15头岩手吉品鲍: $5120.0 | 10.273% of total revenue
+津梨炖岩燕盏: $4140.0 | 8.307% of total revenue
+
+Top 5 in terms of quantity:
+六味岩燕盏: 40.0 | 30.5% of total revenue
+津梨炖岩燕盏: 23.0 | 8.31% of total revenue
+鲍汁荷香海虎翅: 14.0 | 19.1% of total revenue
+法国金兰花烩鲍翅皇: 11.0 | 10.59% of total revenue
+鲍汁扣八头南非干鲍（父亲节组合）: 9.0 | 3.61% of total revenue
+
+Top 5 in terms of price:
+日本15头岩手吉品鲍: $1280.0 | 10.27% of total revenue
+日本20头岩手吉品鲍: $880.0 | 1.77% of total revenue
+鲍汁荷香海虎翅: $680.0 | 19.1% of total revenue
+三支虫草巴戟炖花胶: $580.0 | 6.98% of total revenue
+八头南非鲍: $550.0 | 2.21% of total revenue
+
+#######################################################
+#######################################################
+
+Dept: Product
+Data Date: Jul_2014
+
+Total revenue for Product in Jul_2014 is: $54338.0
+
+Top 5 in terms of revenue:
+至尊班兰莲蓉月(券）: $12864.0 | 23.674% of total revenue
+迷你八喜月(券）: $9322.0 | 17.156% of total revenue
+金腿五仁: $8330.0 | 15.33% of total revenue
+至尊班兰莲蓉月: $5896.0 | 10.851% of total revenue
+金腿五仁(券）: $5474.0 | 10.074% of total revenue
+
+Top 5 in terms of quantity:
+迷你八喜月(券）: 59.0 | 17.16% of total revenue
+至尊班兰莲蓉月(券）: 48.0 | 23.67% of total revenue
+金腿五仁: 35.0 | 15.33% of total revenue
+金腿五仁(券）: 23.0 | 10.07% of total revenue
+至尊班兰莲蓉月: 22.0 | 10.85% of total revenue
+
+Top 5 in terms of price:
+空中金腿皇(券）: $580.0 | 5.34% of total revenue
+空中金腿皇: $580.0 | 2.13% of total revenue
+至尊班兰莲蓉月(券）: $268.0 | 23.67% of total revenue
+至尊班兰莲蓉月: $268.0 | 10.85% of total revenue
+金腿五仁(券）: $238.0 | 10.07% of total revenue
+
+#######################################################
+#######################################################
+
+Dept: Seafood
+Data Date: Jul_2014
+
+Total revenue for Seafood in Jul_2014 is: $351312.14
+
+Top 5 in terms of revenue:
+百岁草炖珍珠鲍鱼: $26640.0 | 7.583% of total revenue
+金柚手撕龙虾: $25806.0 | 7.346% of total revenue
+脆烧星斑扒: $15318.0 | 4.36% of total revenue
+黄油蟹特惠价（3-3.9两）: $13680.0 | 3.894% of total revenue
+火山石窝龙趸扒: $13622.0 | 3.877% of total revenue
+
+Top 5 in terms of quantity:
+金柚手撕龙虾: 187.0 | 7.35% of total revenue
+脆烧星斑扒（半价）: 167.0 | 3.28% of total revenue
+百岁草炖珍珠鲍鱼: 148.0 | 7.58% of total revenue
+火山石窝龙趸扒: 139.0 | 3.88% of total revenue
+脆烧星斑扒: 111.0 | 4.36% of total revenue
+
+Top 5 in terms of price:
+苏眉: $1480.0 | 0.84% of total revenue
+娃娃鱼: $980.0 | 0.89% of total revenue
+苏眉（半价）: $880.0 | 0.5% of total revenue
+娃娃鱼: $780.0 | 0.89% of total revenue
+老鼠斑: $698.0 | 0.95% of total revenue
+
+#######################################################
+#######################################################
+
+Dept: Soup
+Data Date: Jul_2014
+
+Total revenue for Soup in Jul_2014 is: $224730.0
+
+Top 5 in terms of revenue:
+金山黑金刚牛黄炖螺头: $61560.0 | 27.393% of total revenue
+羊肚菌炖花胶: $29480.0 | 13.118% of total revenue
+凉瓜青茉莉花炖活辽参: $23552.0 | 10.48% of total revenue
+石斛灵芝炖地龙: $16836.0 | 7.492% of total revenue
+昆布炖花胶: $14144.0 | 6.294% of total revenue
+
+Top 5 in terms of quantity:
+金山黑金刚牛黄炖螺头: 270.0 | 27.39% of total revenue
+昆布炖花胶: 208.0 | 6.29% of total revenue
+凉瓜青茉莉花炖活辽参: 184.0 | 10.48% of total revenue
+石斛灵芝炖地龙: 122.0 | 7.49% of total revenue
+金山黑金刚牛黄炖螺头（半价）: 115.0 | 5.83% of total revenue
+
+Top 5 in terms of price:
+羊肚菌炖鳘肚公: $518.0 | 5.3% of total revenue
+羊肚菌炖原条辽参: $298.0 | 3.45% of total revenue
+羊肚菌炖花胶: $268.0 | 13.12% of total revenue
+玛卡绅士强身汤: $268.0 | 3.22% of total revenue
+金山黑金刚牛黄炖螺头: $228.0 | 27.39% of total revenue
+
+#######################################################
+#######################################################
+
