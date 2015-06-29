@@ -4,25 +4,8 @@ import csv
 from os import listdir
 
 '''
-	Helper functions for pie chart colors and reading in a csvfile into a dictionary
+	Helper function to read a csv into a list of dictionaries
 '''
-# a set of rgb values of some beautiful colors
-creamy_green = (152, 223, 138)
-creamy_orange = (255, 193, 86)
-light_blue = (162, 200, 236)
-teal = (23, 190, 207)
-maroon = (200, 82, 0)
-grey = (143, 135, 130)
-
-colors = [creamy_green, creamy_orange, light_blue, maroon, teal, grey]
-
-# converts each value in the rgb tuple from 0 - 255 to 0 - 1
-def rgb_scale_down(colors):
-	final = []
-	for c in colors:
-		tup = (float(c[0])/255.0, float(c[1])/255.0, float(c[2])/255.0)
-		final.append(tup)
-	return final
 
 # returns a list of dictionaries, with each dictionary being one line (one item) in the csv file
 # Best way to do it, this function is general
@@ -51,15 +34,13 @@ def csv_to_dict(csv_filename):
 
 '''
 # returns a float, the item_revenue
-# entry here can be 'ITEM_REVENUE', 'ITEM_QUANTITY' or whatever that is a field name in the csvfilea
-# nd is a string that is actually a float
+# entry here can be 'ITEM_REVENUE', 'ITEM_QUANTITY' or whatever that is a field name in the csvfile and is a string that is actually a float
 def get_item_entry(d, entry_name):
 	item_revenue = d[entry_name]
 	# need to get rid of the "," and float it
 	item_revenue = item_revenue.replace(',', '')
 	item_revenue = float(item_revenue)
 	return item_revenue
-
 
 def get_total_revenue(dict_list):
 	total_revenue = 0.0
@@ -68,7 +49,6 @@ def get_total_revenue(dict_list):
 		total_revenue += item_revenue
 
 	return total_revenue
-
 
 # returns a list of tuples: (item_entry, item_name) from high to low order
 # entry_name here can be: 'ITEM_REVENUE', 'ITEM_QUANTITY', 'UNIT_PRICE', whatever that is a fieldname
@@ -86,7 +66,7 @@ def top_k_item_entry(dict_list, k, entry_name):
 	
 	# make top k list now
 	top_k_list = []
-
+	# if k is greater than the number of items that exist in that department, than use the min value of the two
 	k = min(k, len(all_list))
 	for i in range(k):
 		top_k_list.append(all_list[i])
@@ -154,11 +134,11 @@ def find_csv_filenames(path_to_dir, suffix):
     return [filename for filename in filenames if filename.endswith(suffix)]
 
 # this function goes over every csvfile in the data folder and writes the output all in one file
-def write_txt_file_wrapper(k, path_to_dir, data_date):
+def write_txt_file_wrapper(k, path_to_dir, month, year):
 	suffix = '.csv'
 	csv_filenames = find_csv_filenames(path_to_dir, suffix)
 
-	write_filename = 'output/' + data_date + '.txt'
+	write_filename = 'output/' + year + '/' + month + '.txt'
 	f = open(write_filename, 'w')
 
 	for csv_filename in csv_filenames:
@@ -166,6 +146,7 @@ def write_txt_file_wrapper(k, path_to_dir, data_date):
 		filename = path_to_dir + '/' + csv_filename
 		dict_list = csv_to_dict(filename)
 		dept_name = csv_filename.split('.')[0]
+		data_date = month + '_' + year
 		write_txt_file(dict_list, k, dept_name, data_date, f)
 		f.write('#######################################################\n')
 		f.write('#######################################################\n\n')
@@ -176,14 +157,13 @@ def write_txt_file_wrapper(k, path_to_dir, data_date):
 # within each of the folders that it goes over is a set of csv files	
 def wrapper_wrapper(k):
 	# folders is the list of folder names within the data folder
-	folders = listdir('data/')
+	years = listdir('data/')
 	
-	for year in folders:
-		path_to_dir = 'data/' + year
-		for month in listdir(path_to_dir):
+	for year in years:
+		months = listdir('data/' + year)
+		for month in months:
 			path_to_dir = 'data/' + year + '/' + month
-			data_date = month + '_' + year
-			write_txt_file_wrapper(k, path_to_dir, data_date)
+			write_txt_file_wrapper(k, path_to_dir, month, year)
 
 
 
