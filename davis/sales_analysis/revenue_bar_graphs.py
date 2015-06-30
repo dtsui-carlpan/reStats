@@ -2,6 +2,9 @@ from os import listdir
 import numpy as np
 import matplotlib.pyplot as plt
 
+years = ['2014', '2015']
+months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+dept_names = ['Appetizers', 'Entree_expensive', 'Entree_general', 'Dimsum', 'Seafood', 'Soup', 'Luxury', 'Product', 'Bar']
 
 # reads in the text files outputed by sales_analysis_txt.py
 # creates a dictionary with each dept_name as the key and each value being another dictionary with
@@ -36,21 +39,15 @@ def mk_month_dept_revenue_dict():
 # takes the dictionary outputed as above
 # plots a bar graph graph of all 12 months with the 
 def plot_bar_graph(d, year, dept_name):
-	# the key is the month
-	dept_revenue = {}
+	monthly_revenues = []
 
-	for key in d[year]:
-		# key will be the month
-		try:
-			dept_revenue[key] = d[year][key][dept_name]
-		except:
-			dept_revenue[key] = 0.0
-			print year + ' ' + key + ' ' + dept_name + ' has no revenue'
-
-	months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-	revenue = []
 	for month in months:
-		revenue.append(dept_revenue[month])
+		# right now 2015 still only has 4 months
+		try:
+			monthly_revenues.append(d[year][month][dept_name])
+		except:
+			#print year + ' ' + month + ' ' + dept_name + ' has no revenue'
+			monthly_revenues.append(0.0)
 
 
 	pos = np.arange(len(months))
@@ -62,7 +59,7 @@ def plot_bar_graph(d, year, dept_name):
 
 	light_blue = (float(162)/255.0, float(200)/255.0, float(236)/255.0)
 
-	plt.bar(pos, revenue, width, color = light_blue)
+	plt.bar(pos, monthly_revenues, width, color = light_blue)
 
 	title = year + ' ' + dept_name + ' Revenue'
 	plt.title(title)
@@ -73,7 +70,7 @@ def plot_bar_graph(d, year, dept_name):
 
 	save_name = 'output/' + year + '/plots/' +  dept_name + '_' + year + '_bar' + '.png'
 	plt.savefig(save_name)
-	plt.show()
+	#plt.show()
 	plt.close()
  
 def plot_bar_graph_wrapper(d, year):
@@ -81,9 +78,50 @@ def plot_bar_graph_wrapper(d, year):
 	for dept_name in dept_names:
 		plot_bar_graph(d, year, dept_name)
 
+# plots the toal revenue of each month
+def plot_monthly_revenue(d, year):
+	revenues = []
+
+	for month in months:
+		monthly_revenue = 0.0
+		for dept_name in dept_names:
+			try:
+				monthly_revenue += d[year][month][dept_name]
+			except:
+				monthly_revenue += 0.0
+		revenues.append(monthly_revenue)
+
+	pos = np.arange(len(months))
+	width = 0.7
+
+	ax = plt.axes()
+	ax.set_xticks(pos + (width / 2))
+	ax.set_xticklabels(months)
+
+	light_blue = (float(162)/255.0, float(200)/255.0, float(236)/255.0)
+
+	plt.bar(pos, revenues, width, color = light_blue)
+
+	title = year + ' Total Monthly Revenue'
+	plt.title(title)
+	plt.xlabel('Month')
+	plt.ylabel('Revenue (RMB)')
+	plt.ylim((0.0, 2000000.0))
+	plt.grid(True)
+
+
+	save_name = 'output/' + year + '/plots/' + 'total_monthly_revenue_' + year + '_bar' + '.png'
+	plt.savefig(save_name)
+	#plt.show()
+	plt.close()
+
+
 def main():
 	d = mk_month_dept_revenue_dict()
-	plot_bar_graph_wrapper(d, '2014')
+
+	for year in years:
+		plot_bar_graph_wrapper(d, year)
+		plot_monthly_revenue(d, year)
 
 if __name__ == '__main__':
 	main()
