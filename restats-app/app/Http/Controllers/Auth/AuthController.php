@@ -3,62 +3,137 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use Validator;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Guard;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
 
-    use AuthenticatesAndRegistersUsers;
+    /**
+     * The model instance.
+     *
+     * @var
+     */
+    protected $auth;
+
+    /**
+     * The Guard implementation
+     *
+     * @var
+     */
+    protected $registrar;
+
+    /**
+     * Where to redirect upon successful registration
+     *
+     * @var string
+     */
+    protected $redirectTo = 'notices/create'; // temporary
+
 
     /**
      * Create a new authentication controller instance.
      *
-     * @return void
+     * @param Guard $auth
+     * @param User $user
      */
-    public function __construct()
-    {
-        $this->middleware('guest', ['except' => 'getLogout']);
+    public function __construct(Guard $auth, User $user) {
+        $this->user = $user;
+        $this->auth = $auth;
+
+        $this->middleware('guest', ['except' => ['getLogout']]);
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Show the application registration form
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\View\View
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+    public function getRegister() {
+        return view('auth.register');
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Handle a registration request for the application.
      *
-     * @param  array  $data
-     * @return User
+     * @param RegisterRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    protected function create(array $data)
-    {
-        return User::create([
+    public function postRegister(RegisterRequest $request) {
+        // save user to database after register
+        $data = $request->all();
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        // login the user
+        $this->auth->login($user);
+
+        return redirect($this->redirectPath());
     }
+
+    /**
+     * Show the application login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getLogin() {
+        return view('auth.login');
+    }
+
+
+    /**
+     * Handle a login request.
+     *
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function postLogin(Request $request) {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if ($this->auth->attempt($credentials, $request->has('remember'))) {
+            return redirect()->intended($this->redirectPath());
+        }
+
+        return redirect('/auth/login')
+            ->withInput($request->only('email', 'remember'))
+            ->withErrors([
+                'email' => 'These credentials do not match our records.',
+            ]);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function getLogout() {
+        $this->auth->logout();
+
+        return redirect('/auth/login');
+    }
+
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath() {
+        if (property_exists($this, 'redirectPath')) {
+            return $this->redirectPath;
+        }
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+    }
+
 }
