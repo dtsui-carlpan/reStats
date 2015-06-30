@@ -95,13 +95,13 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request) {
         $this->validate($request, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ]);
 
         $credentials = $request->only('email', 'password');
 
+        // authenticate user and redirect to the specified path
         if ($this->auth->attempt($credentials, $request->has('remember'))) {
             return redirect()->intended($this->redirectPath());
         }

@@ -21,7 +21,7 @@
                         @endif
 
                         <form role="form" method="POST" action="{{ url('/auth/register') }}">
-                            <input type="hidden" name="_token" value="{{!! csrf_token() !!}}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             <fieldset>
                                 <div class="form-group">
