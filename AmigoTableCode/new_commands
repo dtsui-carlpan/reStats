@@ -1,0 +1,23 @@
+CREATE DATABASE test character set utf8;
+
+USE test;
+
+CREATE TABLE sales (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  quantity_unit VARCHAR(255) NOT NULL,
+  price_unit VARCHAR(255) NOT NULL,
+  price DECIMAL(7,2) NULL,
+  quantity DECIMAL(6,1) NULL,
+  revenue DECIMAL(9,2) NULL,
+  department_id INT NOT NULL,
+  month_id INT,
+  year_id INT,
+  PRIMARY KEY (id)
+);
+
+LOAD DATA LOCAL INFILE '/home/vagrant/Code/reStats/final.csv'
+INTO TABLE sales
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;

@@ -1,0 +1,7 @@
+USE amigo
+
+LOAD DATA LOCAL INFILE '/home/vagrant/months.csv'
+INTO TABLE months
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;

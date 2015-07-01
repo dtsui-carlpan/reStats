@@ -20,9 +20,14 @@ class CreateSalesItemsTable extends Migration
             $table->decimal('price', 7, 2); // 10000.00
             $table->decimal('quantity', 6, 1); // 10000.0
             $table->decimal('revenue', 9, 2); // 1000000.00
-            $table->timestamps();
 
             // foreign key
+            // department
+            $table->integer('department_id')->unsigned();
+            $table->foreign('department_id')
+                ->references('id')
+                ->on('departments') // on departments table
+                ->onDelete('cascade');
             // month
             $table->integer('month_id')->unsigned();
             $table->foreign('month_id')
@@ -36,12 +41,7 @@ class CreateSalesItemsTable extends Migration
                 ->on('years') // on years table
                 ->onDelete('cascade');
 
-            // department
-            $table->integer('department_id')->unsigned();
-            $table->foreign('department_id')
-                ->references('id')
-                ->on('departments') // on departments table
-                ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

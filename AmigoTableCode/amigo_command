@@ -1,0 +1,7 @@
+USE amigo
+
+LOAD DATA LOCAL INFILE '/home/vagrant/Code/reStats/final.csv'
+INTO TABLE sales_items
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;

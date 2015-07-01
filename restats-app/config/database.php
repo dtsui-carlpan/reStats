@@ -55,7 +55,7 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => '192.168.10.10',
-            'database'  => 'restats',
+            'database'  => 'amigo',
             'username'  => 'homestead',
             'password'  => 'secret',
             'charset'   => 'utf8',
