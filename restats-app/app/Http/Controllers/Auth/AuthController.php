@@ -30,7 +30,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'notices/create'; // temporary
+    protected $redirectTo = 'items'; // temporary
 
 
     /**

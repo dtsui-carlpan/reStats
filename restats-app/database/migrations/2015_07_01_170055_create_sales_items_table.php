@@ -26,20 +26,17 @@ class CreateSalesItemsTable extends Migration
             $table->integer('department_id')->unsigned();
             $table->foreign('department_id')
                 ->references('id')
-                ->on('departments') // on departments table
-                ->onDelete('cascade');
+                ->on('departments'); // on departments table
             // month
             $table->integer('month_id')->unsigned();
             $table->foreign('month_id')
                 ->references('id')
-                ->on('months') // on months table
-                ->onDelete('cascade');
+                ->on('months'); // on months table
             // year
             $table->integer('year_id')->unsigned();
             $table->foreign('year_id')
                 ->references('id')
-                ->on('years') // on years table
-                ->onDelete('cascade');
+                ->on('years'); // on years table
 
             $table->timestamps();
         });

@@ -6,15 +6,15 @@ html, body {
 }
 
 body {
-  margin: 0;
-  padding: 0;
   width: 100%;
+  padding-top: 50px;
 }
 
 .topnav {
   font-size: 14px;
 }
 
+// Home page
 .intro-page {
   color: #B0BEC5;
   padding-top: 50px;
@@ -53,3 +53,9 @@ body {
   padding-top:200px;
 }
 
+// Pages after login/register
+// total revenue page
+.total-rev {
+  padding: 40px 15px;
+  text-align: center;
+}

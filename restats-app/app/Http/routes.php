@@ -15,6 +15,10 @@
  * The home page */
 Route::get('/', 'PagesController@home');
 
+/**
+ * Pages after login in
+ */
+Route::get('items', 'SalesItemsController@index');
 
 /**
  * Authentication
