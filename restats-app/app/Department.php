@@ -17,4 +17,5 @@ class Department extends Model
     public function sales_items() {
         $this->hasMany('App\SalesItem', 'department_id');
     }
+
 }

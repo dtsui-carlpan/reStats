@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SalesItem;
+use App\Month;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +19,12 @@ class SalesItemsController extends Controller
     }
 
     public function index() {
-        $sale = SalesItem::find(1);
-        return view('sales_items.index')->with('item', $sale);
+        //$sale = SalesItem::find(1);
+        $sales = Month::first()->sales_items()->select()->get();
+
+        return view('sales_items.index')
+            ->with('items', $sales)
+            ->with('names', json_encode($sales->lists('name')))
+            ->with('totals', json_encode($sales->lists('revenue')));
     }
 }

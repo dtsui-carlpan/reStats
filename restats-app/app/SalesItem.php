@@ -17,11 +17,10 @@ class SalesItem extends Model
      * Query Scopes *
      ****************/
 
-    public function scopeTotalRevenue($query) {
-        $query->where();
+    public function scopeSelect($query) {
+        $match = ['department_id' => '1', 'year_id' => '1'];
+        $query->where($match);
     }
-
-
 
 
 

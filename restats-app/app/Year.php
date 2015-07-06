@@ -17,4 +17,5 @@ class Year extends Model
     public function sales_items() {
         $this->hasMany('App\SalesItem', 'year_id');
     }
+
 }

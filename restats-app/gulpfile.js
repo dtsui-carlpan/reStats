@@ -30,6 +30,10 @@ elixir(function(mix) {
             path + 'font-awesome/css/font-awesome.min.css',
             'public/css/vendor/font-awesome.css'
     )
+        .copy(
+            path + 'Chart.js/Chart.min.js',
+            'public/js/vendor/Chart.min.js'
+    )
         .styles([
             'app.css',
             'vendor/font-awesome.css'

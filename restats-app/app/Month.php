@@ -17,4 +17,5 @@ class Month extends Model
     public function sales_items() {
         return $this->hasMany('App\SalesItem', 'month_id');
     }
+
 }
