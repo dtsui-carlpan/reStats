@@ -6032,8 +6032,11 @@ body {
 .vertical-offset-100 {
   padding-top: 200px; }
 
-.total-rev {
-  padding: 40px 15px;
+.plot-page {
+  padding-top: 50px;
   text-align: center; }
+
+.voffset {
+  margin-top: 100px; }
 
 /*# sourceMappingURL=app.css.map */

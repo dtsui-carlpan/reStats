@@ -18,7 +18,10 @@ Route::get('/', 'PagesController@home');
 /**
  * Pages after login in
  */
-Route::get('items', 'SalesItemsController@index');
+Route::get('home', 'SalesItemsController@index');
+
+Route::resource('items', 'SalesItemsController');
+Route::get('test', 'SalesItemsController@getDepartmentSaleByMonth');
 
 /**
  * Authentication
