@@ -1,0 +1,64 @@
+.canvas-holder {
+  padding: 4px 0;
+  margin: 20px 0;
+  position: relative;
+}
+
+.canvas-holder img {
+  width: 100%;
+  height: auto;
+}
+
+
+.hover-highlight {
+  border-radius: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color 200ms ease-in-out;
+  -moz-transition: background-color 200ms ease-in-out;
+  -o-transition: background-color 200ms ease-in-out;
+  transition: background-color 200ms ease-in-out;
+}
+
+
+.hover-highlight:hover {
+  background-color: rgba(239, 241, 245, 0.3);
+  border-radius: 10px;
+}
+
+.hover-highlight canvas {
+  cursor: pointer;
+}
+
+
+.carousel {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+.carousel canvas {
+  display: inline-block;
+  -webkit-transition: -webkit-transform 400ms ease-out;
+  -moz-transition: -moz-transform 400ms ease-out;
+  -o-transition: -o-transform 400ms ease-out;
+  transition: -webkit-transform 400ms ease-out,-moz-transform 400ms ease-out,-o-transform 400ms ease-out,transform 400ms ease-out;
+}
+
+.position-1 canvas {
+  -webkit-transform: translateX(0%);
+  -moz-transform: translateX(0%);
+  -o-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+.position-2 canvas {
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
