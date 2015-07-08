@@ -48,11 +48,24 @@ class SalesItem extends Model
         $query->where($match);
     }
 
+    /**
+     * Get top items in revenue in department.
+     *
+     * @param $query
+     * @param $department
+     * @param $month
+     * @param $year
+     * @param $num
+     */
+    public function scopeSelectTopInDepartment($query, $department, $month, $year, $num) {
+        $match = ['year_id' => $year, 'month_id' => $month, 'department_id' => $department];
+        $query->where($match)->orderBy('revenue', 'desc')->take($num);
+    }
+
 
     /**************************
      * Eloquent Relationships *
      **************************/
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

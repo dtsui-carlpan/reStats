@@ -19,7 +19,6 @@ class SalesItemsController extends Controller
         $this->middleware('auth');
     }
 
-
     /**
      * Total revenue by months.
      *
@@ -92,6 +91,7 @@ class SalesItemsController extends Controller
     }
 
 
+
     /**
      * Index page.
      *
@@ -121,5 +121,4 @@ class SalesItemsController extends Controller
             ->with('appetizers', json_encode($appetizerSales))
             ->with('bars', json_encode($barSales));
     }
-
 }
