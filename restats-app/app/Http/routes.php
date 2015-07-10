@@ -13,15 +13,15 @@
 
 /**
  * The home page */
-Route::get('/', 'PagesController@home');
+Route::get('/', ['middleware' => 'prevent', 'uses' => 'PagesController@home']);
+Route::get('home', ['middleware' => 'prevent', 'uses' => 'PagesController@home']);
 
 /**
  * Pages after login in
  */
-Route::get('home', 'SalesItemsController@index');
-
-Route::resource('items', 'SalesItemsController');
-Route::get('test', 'SalesItemsController@getDepartmentSaleByMonth');
+//Route::resource('items', 'SalesItemsController');
+Route::get('items', 'SalesItemsController@index');
+Route::get('items/details', 'SalesItemsController@detail');
 
 /**
  * Authentication

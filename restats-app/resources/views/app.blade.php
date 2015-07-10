@@ -20,11 +20,11 @@
     <![endif]-->
 </head>
 <body>
-    @include ('partials.nav')
+    @include ('layout.nav')
 
-    @yield('content')
+    @include('layout.main')
 
-    @include ('partials.footer')
+    @include ('layout.footer')
 
     <!-- Bootstrap JavaScript -->
     <script src="/js/vendor/jquery.js"></script>

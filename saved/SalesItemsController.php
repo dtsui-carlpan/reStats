@@ -29,6 +29,17 @@ class SalesItemsController extends Controller
      */
     /*
     private function getMonthlyTotalRevenue($year) {
+        $data = [];
+        $months = Month::with('sales_items')->get();
+        foreach($months as $month) {
+            $month_name = $month->month;
+            $month_rev = $month->sales_items()->selectYear($year)->sum('revenue');
+            $data[$month_name] = $month_rev;
+        }
+        return $data;
+    }
+    */
+    private function getMonthlyTotalRevenue($year) {
         $data = array();
         // get month array
         $months = DB::table('months')->lists('month', 'id');
@@ -39,7 +50,7 @@ class SalesItemsController extends Controller
         }
 
         return $data;
-    }*/
+    }
 
     /**
      * Total revenue by departments.
@@ -49,6 +60,17 @@ class SalesItemsController extends Controller
      */
     /*
     private function getDepartmentRevenue($year) {
+        $data = [];
+        $departments = Department::with('sales_items')->get();
+        foreach($departments as $department) {
+            $department_name = $department->department;
+            $department_rev = $department->sales_items()->selectYear($year)->sum('revenue');
+            $data[$department_name] = $department_rev;
+        }
+        return $data;
+    }
+    */
+    private function getDepartmentRevenue($year) {
         $data = array();
         // get department array
         $departments = DB::table('departments')->lists('department', 'id');
@@ -57,7 +79,7 @@ class SalesItemsController extends Controller
             $revenue = DB::table('sales_items')->where($match)->sum('revenue');
             $data[$value] = $revenue;
         }
-    }*/
+    }
 
     /**
      * Returns a nested array for each department for every month.
@@ -66,6 +88,20 @@ class SalesItemsController extends Controller
      * @param $yearNum
      * @return array
      */
+    /*
+    private function getDepartmentSaleByMonth($year) {
+        $data = [];
+        $departments = Department::with('sales_items')->get();
+        foreach($departments as $department) {
+            for ($m = 1; $m <= 12; $m++) {
+                $department_rev = $department->sales_items()->selectDepartment($m, $year)->sum('revenue');
+                $data[$department->department][] = $department_rev;
+            }
+        }
+        return $data;
+    }
+    */
+
     private function getDepartmentSaleByMonth($year) {
         $data = array();
         // get month array
@@ -122,6 +158,7 @@ class SalesItemsController extends Controller
         $appetizerSales = $this->getSingleDepartment('Appetizers', $first);
         // Bar
         //$barSales = $this->getSingleDepartment('Bar', $first);
+
 
         return view('sales_items.index')
             ->with('monthNames', json_encode(Month::all()->lists('month')))
