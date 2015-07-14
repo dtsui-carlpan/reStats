@@ -27,8 +27,8 @@ elixir(function(mix) {
             'public/js/vendor/bootstrap.js'
     )
         .copy(
-            path + 'font-awesome/css/font-awesome.min.css',
-            'public/css/vendor/font-awesome.css'
+            path + 'font-awesome',
+            'public/css/vendor'
     )
         .copy(
             path + 'Chart.js/Chart.min.js',

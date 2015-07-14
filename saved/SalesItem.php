@@ -62,8 +62,6 @@ class SalesItem extends Model
         $query->where($match)->orderBy('revenue', 'desc')->take($num);
     }
 
-
-
     /**************************
      * Eloquent Relationships *
      **************************/

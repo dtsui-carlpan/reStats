@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use View;
+use JavaScript;
 use App\Month;
 use App\SalesItem;
 use App\Department;
@@ -9,8 +12,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use DB;
-use JavaScript;
+
 
 class SalesItemsController extends Controller
 {
@@ -27,11 +29,10 @@ class SalesItemsController extends Controller
      * @param $yearNum
      * @return array
      */
-    /*
-    private function getMonthlyTotalRevenue($year) {
+    private function getMonthlyTotalRevenue($year, $month) {
         $data = array();
         // get month array
-        $months = DB::table('months')->lists('month', 'id');
+        $months = DB::table('months')->where('id', '<=', $month)->lists('month', 'id');
         foreach ($months as $key => $value) {
             $match = ['year_id' => $year, 'month_id' => $key];
             $revenue = DB::table('sales_items')->where($match)->sum('revenue');
@@ -39,66 +40,53 @@ class SalesItemsController extends Controller
         }
 
         return $data;
-    }*/
+    }
 
     /**
      * Total revenue by departments.
+     *  (specify by month for real-time info)
      *
      * @param $yearNum
      * @return array
      */
-    /*
-    private function getDepartmentRevenue($year) {
+    private function getDepartmentRevenue($year, $month) {
         $data = array();
         // get department array
         $departments = DB::table('departments')->lists('department', 'id');
         foreach ($departments as $key => $value) {
-            $match = ['year_id' => $year, 'department_id' => $key];
+            $match = ['year_id' => $year, 'month_id' => $month, 'department_id' => $key];
             $revenue = DB::table('sales_items')->where($match)->sum('revenue');
             $data[$value] = $revenue;
         }
-    }*/
 
-    /**
-     * Returns a nested array for each department for every month.
-     * (Should be cached instead of loading every time)
-     *
-     * @param $yearNum
-     * @return array
-     */
-    private function getDepartmentSaleByMonth($year) {
-        $data = array();
-        // get month array
-        $months = DB::table('months')->lists('month', 'id');
-        // get department array
-        $departments = DB::table('departments')->lists('department', 'id');
-        foreach ($departments as $d => $department) {
-            foreach ($months as $m => $month) {
-                $match = ['year_id' => $year, 'department_id' => $d, 'month_id' => $m];
-                $revenue = DB::table('sales_items')->where($match)->sum('revenue');
-                $data[$department][] = $revenue;
-            }
-        }
         return $data;
     }
 
+
     /**
-     * Return 1-d array for the specified department.
+     * Get an associative array of top $num items by sales
+     * in current month.
      *
-     * @param $name
      * @param $year
+     * @param $month
+     * @param $num
      * @return mixed
      */
-    private function getSingleDepartment($name, $year) {
-        // get the nested array
-        $data = $this->getDepartmentSaleByMonth($year);
+    private function getTopItemsByMonth($year, $month, $num) {
+        // perform query and get array of top items
+        $match = ['year_id' => $year, 'month_id' => $month];
+        $top = DB::table('sales_items')->where($match)->orderBy('revenue', 'desc')
+                                       ->take($num)->lists('revenue', 'name');
 
-        // retrieve the 1-d array based on $name key
-        $result = $data[$name];
-
-        return $result;
+        return $top;
     }
 
+    private function getTopItemsTilNow($year, $month, $num) {
+        $match = ['year_id' => $year];
+        $top = DB::table('sales_items')->where($match);
+
+        return $top;
+    }
 
 
     /**
@@ -107,29 +95,36 @@ class SalesItemsController extends Controller
      * @return $this
      */
     public function index() {
-        // year 2014
-        $first = 1;
+        // essentially everything later will be in real time
+        // one solution is to extract year/month/week/day from timestamp()
+        $year = 1; // current year
+        $month = 7; // current month
+        $num = 5; // temp number, user will enter this value
 
-        //dd($this->getDepartmentSaleByMonth($first));
-        // get revenue by month
-        //$monthSales = $this->getMonthlyTotalRevenue($first);
+        // get revenue by month (this year)
+        $monthSales = $this->getMonthlyTotalRevenue($year, $month);
 
-        // get revenue by department
-        //$departmentSales = $this->getDepartmentRevenue($first);
+        // get revenue by department (this month)
+        $departmentSales = $this->getDepartmentRevenue($year, $month);
 
-        // compare each department revenue by month
-        // Appetizers
-        $appetizerSales = $this->getSingleDepartment('Appetizers', $first);
-        // Bar
-        //$barSales = $this->getSingleDepartment('Bar', $first);
+        // get top items in current month
+        $topCurrentItems = $this->getTopItemsByMonth($year, $month, $num);
+
+        $month_array = Month::where('id', '<=', $month)->lists('month');
+        $depart_array = Department::all()->lists('department');
+
+        // for javascript variable uses
+        Javascript::put([
+            'monthNames' => $month_array,
+            'departNames' => $depart_array
+        ]);
 
         return view('sales_items.index')
-            ->with('monthNames', json_encode(Month::all()->lists('month')))
-            //->with('monthTotals', json_encode($monthSales))
-            //->with('departNames', json_encode(Department::all()->lists('department')))
-            //->with('departTotals', json_encode($departmentSales))
-            ->with('appetizers', json_encode($appetizerSales));
-            //->with('bars', json_encode($barSales));
+            ->with('topCurrentItems', $topCurrentItems)
+            ->with('monthNames', json_encode($month_array))
+            ->with('monthTotals', json_encode($monthSales))
+            ->with('departNames', json_encode($depart_array))
+            ->with('departTotals', json_encode($departmentSales));
     }
 
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interactive Chart Ex</title>	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div style="width: 50%">
+		<canvas id="canvas" height="450" width="600"></canvas>
+	</div>
+
+
+
+	<!-- Chart.js Plot -->
+	<script src="/Users/carlpan66/Homestead/Projects/bower_components/Chart.js/Chart.js"></script>
+	<script src="/Users/carlpan66/Homestead/Projects/Chart.StackedBar.js/src/Chart.StackedBar.js"></script>
+	
+	<script>
+	var data = {
+		labels : ["January","February","March","April","May","June","July"],
+		datasets : [
+			{
+				fillColor : "rgba(220,220,220,0.5)",
+				strokeColor : "rgba(220,220,220,0.8)",
+				highlightFill: "rgba(220,220,220,0.75)",
+				highlightStroke: "rgba(220,220,220,1)",
+				//data: [10, 32, 22, 13, 12, 3, 8]
+				data:[10000, 20000, 13130, 11110, 22220, 10100, 13120]
+			},
+			{
+				fillColor : "rgba(151,187,205,0.5)",
+				strokeColor : "rgba(151,187,205,0.8)",
+				highlightFill : "rgba(151,187,205,0.75)",
+				highlightStroke : "rgba(151,187,205,1)",
+				data: [71760.47, 48509.95, 62970.13, 54539.21, 62265.64, 62892.06, 60447.77]
+			}
+		]
+	};
+	
+	window.onload = function() {
+		var ctx = document.getElementById("canvas").getContext("2d");
+		window.myBar = new Chart(ctx).StackedBar(data, {responsive: true});
+	};
+	
+	</script>
+			
+	<!-- Bootstrap  related -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+

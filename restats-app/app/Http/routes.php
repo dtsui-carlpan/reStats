@@ -14,14 +14,30 @@
 /**
  * The home page */
 Route::get('/', ['middleware' => 'prevent', 'uses' => 'PagesController@home']);
-Route::get('home', ['middleware' => 'prevent', 'uses' => 'PagesController@home']);
 
 /**
  * Pages after login in
  */
 //Route::resource('items', 'SalesItemsController');
-Route::get('items', 'SalesItemsController@index');
-Route::get('items/details', 'SalesItemsController@detail');
+Route::group(['prefix' => 'home'], function()
+{
+    Route::get('/', 'SalesItemsController@index');
+    Route::get('details', 'SalesItemsController@detail');
+});
+
+
+Route::group(['prefix' => 'home'], function()
+{
+    Route::get('/appetizers', 'DepartmentController@showAppetizers');
+    Route::get('/bar', 'DepartmentController@showBar');
+    Route::get('/dimsum', 'DepartmentController@showDimsum');
+    Route::get('/entree_expensive', 'DepartmentController@showEntreeExpensive');
+    Route::get('/entree_general', 'DepartmentController@showEntreeGeneral');
+    Route::get('/luxury', 'DepartmentController@showLuxury');
+    Route::get('/product', 'DepartmentController@showProduct');
+    Route::get('/seafood', 'DepartmentController@showSeafood');
+    Route::get('/soup', 'DepartmentController@showSoup');
+});
 
 /**
  * Authentication

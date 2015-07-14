@@ -30,7 +30,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'items'; // temporary
+    //protected $redirectTo = 'home';
 
 
     /**
@@ -130,10 +130,11 @@ class AuthController extends Controller
      * @return string
      */
     public function redirectPath() {
+        // didn't set redirectPath and redirectTo
         if (property_exists($this, 'redirectPath')) {
             return $this->redirectPath;
         }
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : 'home';
     }
 
 }

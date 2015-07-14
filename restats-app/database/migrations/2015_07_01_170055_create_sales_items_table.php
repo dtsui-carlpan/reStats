@@ -19,7 +19,7 @@ class CreateSalesItemsTable extends Migration
             $table->string('price_unit'); // RMB
             $table->decimal('price', 7, 2); // 10000.00
             $table->decimal('quantity', 6, 1); // 10000.0
-            $table->decimal('revenue', 9, 2); // 1000000.00
+            $table->decimal('revenue', 9, 2)->index(); // 1000000.00
 
             // foreign key
             // department
