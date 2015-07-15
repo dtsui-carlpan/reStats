@@ -157,7 +157,7 @@
              * revenue by months *
              *********************/
             var chart = {
-                labels: <?php echo $monthNames; ?>,
+                labels: ['一月', '二月', '三月', '四月', '五月', '六月', '七月'],
                 datasets: [{
                     data: <?php echo $monthTotals; ?>,
                     fillColor: "#5B90BF",
@@ -170,7 +170,7 @@
              * revenue by departments *
              **************************/
             var departments = {
-                labels: <?php echo $departNames; ?>,
+                labels: ['前菜', '酒水', '小吃', '贵菜', '大众菜', '奢肴', '物品', '海鲜', '汤类'],
                 datasets: [{
                     data: <?php echo $departTotals; ?>,
                     fillColor: "#F7464A",
@@ -185,10 +185,10 @@
                 function() {
                     // month
                     var ctx_month = document.getElementById('month-reports').getContext('2d');
-                    var monthChart = new Chart(ctx_month).Bar(chart, {responsive: true});
+                    var monthChart = new Chart(ctx_month).Bar(chart, {responsive: true, barValueSpacing: 8});
                     // department
                     var ctx_depart = document.getElementById('department-reports').getContext('2d');
-                    var departChart = new Chart(ctx_depart).Bar(departments, {responsive: true});
+                    var departChart = new Chart(ctx_depart).Bar(departments, {responsive: true, barValueSpacing: 8});
 
                     // month event
                     $("#month-reports").click(

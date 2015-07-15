@@ -46,8 +46,30 @@
                     <i class="fa fa-fw fa-caret-down"></i>
                 </a>
                 <ul id="demo1" class="collapse">
-                    <li><a href="{{ url('home/departments') }}">Department</a></li>
+                    <li><a href="{{ url('home/show_departments') }}">Department</a></li>
                     <li><a href="#">Invoice</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#customer">
+                    <i class="fa fa-fw fa-female"></i>
+                        Customers
+                    <i class="fa fa-fw fa-caret-down"></i>
+                </a>
+                <ul id="customer" class="collapse">
+                    <li><a href="#">Test1</a></li>
+                    <li><a href="#">Test2</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#server">
+                    <i class="fa fa-fw fa-female"></i>
+                    Servers
+                    <i class="fa fa-fw fa-caret-down"></i>
+                </a>
+                <ul id="server" class="collapse">
+                    <li><a href="#">Test1</a></li>
+                    <li><a href="#">Test2</a></li>
                 </ul>
             </li>
             <li>

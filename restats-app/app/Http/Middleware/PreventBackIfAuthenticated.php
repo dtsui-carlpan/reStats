@@ -36,7 +36,7 @@ class PreventBackIfAuthenticated
     {
         if (!$this->auth->guest()) {
             if ($request->is('/')) {
-                return redirect('items');
+                return redirect('/home');
             }
         }
 

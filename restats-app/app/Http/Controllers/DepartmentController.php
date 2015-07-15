@@ -28,13 +28,44 @@ class DepartmentController extends Controller
      * Query functions       *
      *************************/
 
-    private function getTopInAppetizers($year, $month, $num) {
-        $match = ['year_id' => $year, 'month_id' => $month, 'department_id' => 1];
-        $results = DB::table('sales_items')->where($match)->orderBy('revenue', 'desc')->take($num);
+    private function getTopItems($year, $month, $department, $num) {
+        $data = array();
+        $match = ['year_id' => $year, 'month_id' => $month, 'department_id' => $department];
 
-        return $results;
+        // get lists
+        $name = DB::table('sales_items')->where($match)->orderBy('revenue', 'desc')->take($num)->lists('name');
+        $price =  DB::table('sales_items')->where($match)->orderBy('revenue', 'desc')->take($num)->lists('price');
+        $revenue = DB::table('sales_items')->where($match)->orderBy('revenue', 'desc')->take($num)->lists('revenue');
+
+        // build up array with key as name and value as ['price', 'revenue']
+        for ($index = 0; $index < count($name); $index++) {
+            $data[$name[$index]] = [$price[$index], $revenue[$index]];
+        }
+
+        return $data;
     }
 
+    private function getLeastItems($year, $month, $department, $num) {
+        $data = array();
+        $match = ['year_id' => $year, 'month_id' => $month, 'department_id' => $department];
+
+        // queries to get lists
+        $name = DB::table('sales_items')->where($match)->orderBy('revenue', 'asc')->take($num)->lists('name');
+        $price = DB::table('sales_items')->where($match)->orderBy('revenue', 'asc')->take($num)->lists('price');
+        $revenue = DB::table('sales_items')->where($match)->orderBy('revenue', 'asc')->take($num)->lists('revenue');
+
+        // reverse array
+        $name = array_reverse($name);
+        $price = array_reverse($price);
+        $revenue = array_reverse($revenue);
+
+        // build up array with key as name and value as ['price', 'revenue']
+        for ($index = 0; $index < count($name); $index++) {
+            $data[$name[$index]] = [$price[$index], $revenue[$index]];
+        }
+
+        return $data;
+    }
 
     /**
      * Returns a nested array for each department for every month.
@@ -87,18 +118,27 @@ class DepartmentController extends Controller
     public function showAppetizers() {
         $year = 1;
         $month = 7;
+        $department = 1;
+
+        // for sales plot
         $appetizerSales = $this->getSingleDepartment('Appetizers', $year, $month);
         $month_array = Month::where('id', '<=', $month)->lists('month');
 
-        // for table
+        // for table summary
         $num = 5; // temp
-        $top = $this->getTopInAppetizers($year, $month, $num);
+        $top = $this->getTopItems($year, $month, $department, $num);
+        $least = $this->getLeastItems($year, $month, $department, $num);
 
         return view('departments.appetizers')
             ->with('monthNames', json_encode($month_array))
             ->with('appetizers', json_encode($appetizerSales))
-            ->with('topItems', $top->lists('revenue', 'name'));
+            ->with('topItems', $top)
+            ->with('leastItems', $least);
     }
+
+
+
+
 
     /**
      * @return mixed

@@ -127,6 +127,9 @@ class SalesItemsController extends Controller
             ->with('departTotals', json_encode($departmentSales));
     }
 
+    public function show() {
+        return view('sales_items.show');
+    }
 
 
     public function detail() {

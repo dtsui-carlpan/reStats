@@ -21,8 +21,9 @@ Route::get('/', ['middleware' => 'prevent', 'uses' => 'PagesController@home']);
 //Route::resource('items', 'SalesItemsController');
 Route::group(['prefix' => 'home'], function()
 {
-    Route::get('/', 'SalesItemsController@index');
+    Route::get('/', ['middleware' => 'auth', 'uses' => 'SalesItemsController@index']);
     Route::get('details', 'SalesItemsController@detail');
+    Route::get('show_departments', 'SalesItemsController@show');
 });
 
 
